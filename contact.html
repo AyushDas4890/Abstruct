@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get a Quote | ABSTRUCT Construction</title>
+  <meta name="description" content="Tell ABSTRUCT what you are building. Choose a type, size and timeline and see your scope sheet take shape.">
+  <meta name="theme-color" content="#EBE5DC">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Libre+Caslon+Condensed:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/inner.css">
+</head>
+<body data-page="contact" data-theme="light">
+<main id="main">
+
+  <section class="phead" data-theme="light">
+    <div class="wrap phead__grid">
+      <div>
+        <p class="label rv">/ Contact</p>
+        <h1 class="display" data-in style="font-size:clamp(2.8rem,8vw,8.8rem)">
+          <span class="ln"><span style="--i:0">Let’s build</span></span>
+          <span class="ln"><span style="--i:1">a stronger</span></span>
+          <span class="ln"><span style="--i:2">tomorrow.</span></span>
+        </h1>
+      </div>
+      <div class="phead__side rv" style="--d:.3s">
+        <p>Tell us what you are building. The sheet on the right fills in as you answer, and that is exactly what we receive.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-theme="light" aria-label="Quote builder">
+    <div class="wrap contact">
+      <form id="quote" novalidate autocomplete="on">
+
+        <fieldset class="fs rv">
+          <legend><b>01</b> What are you building?</legend>
+          <div class="types" id="types" role="radiogroup" aria-label="Project type"></div>
+        </fieldset>
+
+        <fieldset class="fs rv">
+          <legend><b>02</b> How big?</legend>
+          <div class="size">
+            <p class="size__v"><span id="sizeOut">3,100</span><small>m²</small></p>
+            <input type="range" id="size" min="0" max="1000" step="1" value="650" aria-label="Approximate floor area in square metres" aria-valuetext="3,100 square metres">
+            <div class="ticks" aria-hidden="true"><span>100 m²</span><span>2,000</span><span>20,000 m²</span></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fs rv">
+          <legend><b>03</b> When do you want to start?</legend>
+          <div class="seg" id="timeline" role="radiogroup" aria-label="Timeline"></div>
+        </fieldset>
+
+        <fieldset class="fs rv">
+          <legend><b>04</b> Where are you now?</legend>
+          <div class="seg" id="stage" role="radiogroup" aria-label="Project stage"></div>
+        </fieldset>
+
+        <fieldset class="fs rv">
+          <legend><b>05</b> Who are we talking to?</legend>
+          <div class="fields">
+            <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name"><span class="field__err" id="e-name" aria-live="polite"></span></div>
+            <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email"><span class="field__err" id="e-email" aria-live="polite"></span></div>
+            <div class="field"><label for="f-phone">Phone (optional)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+            <div class="field"><label for="f-site">Site location (optional)</label><input id="f-site" name="site" type="text"></div>
+            <div class="field field--full"><label for="f-msg">Anything we should know</label><textarea id="f-msg" name="message" rows="3"></textarea></div>
+          </div>
+        </fieldset>
+
+        <div class="send rv">
+          <button class="btn" type="submit" data-cursor="Send">Send my brief <span class="arr" aria-hidden="true">→</span></button>
+          <small>This opens a pre-written email in your mail app. Nothing is sent until you press send there.</small>
+        </div>
+
+        <div class="sent" id="sent" role="status" aria-live="polite">
+          <h3>Brief ready.</h3>
+          <p>Your email app should have opened with the scope sheet filled in. If nothing happened, copy the summary and send it to <strong>hello@abstruct.example</strong>.</p>
+          <div class="sent__row">
+            <a class="btn" id="sentMail" href="#">Open email again</a>
+            <button class="btn" type="button" id="sentCopy">Copy summary</button>
+          </div>
+        </div>
+      </form>
+
+      <aside class="ticket" id="ticket" aria-label="Your scope sheet">
+        <div class="ticket__art" id="tArt"></div>
+        <span class="stamp" aria-hidden="true">Received</span>
+        <div class="ticket__body">
+          <p class="ticket__ref"><span>Scope sheet</span><span id="tRef">ABS-26-0000</span></p>
+          <dl>
+            <div><dt>Type</dt><dd id="tType"></dd></div>
+            <div><dt>Area</dt><dd id="tSize"></dd></div>
+            <div><dt>Start</dt><dd id="tTime"></dd></div>
+            <div><dt>Stage</dt><dd id="tStage"></dd></div>
+          </dl>
+          <div class="ticket__est"><span>Illustrative programme</span><b id="tEst"></b></div>
+          <p class="ticket__note">Illustrative only. We confirm programme and price against drawings.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</main>
+<script src="js/core.js"></script>
+<script src="js/art.js"></script>
+<script src="js/data.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

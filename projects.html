@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects | ABSTRUCT Construction</title>
+  <meta name="description" content="Featured projects from ABSTRUCT Construction: spaces designed for people, built to last.">
+  <meta name="theme-color" content="#EBE5DC">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Libre+Caslon+Condensed:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/inner.css">
+</head>
+<body data-page="projects" data-theme="light">
+<main id="main">
+
+  <section class="phead" data-theme="light">
+    <div class="wrap phead__grid">
+      <div>
+        <p class="label rv">/ Projects</p>
+        <h1 class="display" data-in>
+          <span class="ln"><span style="--i:0">Featured</span></span>
+          <span class="ln"><span style="--i:1">Projects</span></span>
+        </h1>
+      </div>
+      <div class="phead__side rv" style="--d:.2s">
+        <p>Spaces designed for people, built to last. Hover a project to see its drawing; open one for the full file.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-theme="light" aria-label="All projects">
+    <div class="wrap">
+      <div class="pfilter rv">
+        <div class="chips" id="pChips" role="group" aria-label="Filter projects"></div>
+        <p class="pfilter__count" id="pCount" aria-live="polite"></p>
+      </div>
+      <div class="pgrid" id="pgrid"></div>
+    </div>
+  </section>
+
+</main>
+
+<div class="dossier" id="dossier" role="dialog" aria-modal="true" aria-labelledby="dName" aria-hidden="true">
+  <div class="dossier__grid">
+    <div class="stage" id="stage" data-mode="render">
+      <div class="stage__render" id="stR"></div>
+      <div class="stage__bp" id="stB"></div>
+      <div class="mode" role="group" aria-label="View mode">
+        <button type="button" data-m="render" aria-pressed="true">Render</button>
+        <button type="button" data-m="blueprint" aria-pressed="false">Blueprint</button>
+      </div>
+    </div>
+    <div class="dossier__info">
+      <div class="dossier__top dossier__in" style="--k:0"><span class="idx" id="dCount"></span><button type="button" class="dossier__x" id="dClose" aria-label="Close project">✕</button></div>
+      <div class="dossier__in" style="--k:1"><p class="dossier__type" id="dType"></p><h2 class="display" id="dName"></h2></div>
+      <p class="dossier__sum dossier__in" style="--k:2" id="dSum"></p>
+      <div class="trio dossier__in" style="--k:3" id="dTrio"></div>
+      <dl class="facts dossier__in" style="--k:4" id="dFacts"></dl>
+      <div class="dossier__nav dossier__in" style="--k:5">
+        <button type="button" class="btn btn--ghost" id="dPrev">← Prev</button>
+        <button type="button" class="btn" id="dNext">Next →</button>
+        <a class="btn btn--ghost" id="dQuote" href="contact.html">Start a similar project</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/core.js"></script>
+<script src="js/art.js"></script>
+<script src="js/data.js"></script>
+<script src="js/projects.js"></script>
+</body>
+</html>
