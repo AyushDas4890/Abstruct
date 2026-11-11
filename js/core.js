@@ -1,4 +1,4 @@
-/* ABSTRUCT — core: chrome injection, page transitions, theme flip, reveals, counters, cursor, marquee */
+/* ABSTRUCT — core: chrome injection, page transitions, theme flip, reveals, counters, cursor */
 (function () {
   'use strict';
   var ABS = window.ABS = window.ABS || {};
@@ -172,8 +172,7 @@
   collectSections();
   ABS.refreshSections = collectSections;
 
-  var lastY = window.scrollY, vel = 0, skew = 0, ticking = false;
-  var marquees = [];
+  var lastY = window.scrollY, vel = 0, ticking = false;
   function onScroll() {
     var y = window.scrollY;
     vel = y - lastY; lastY = y;
@@ -189,23 +188,6 @@
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; onScroll(); }); } }, { passive: true });
   window.addEventListener('resize', onScroll);
   onScroll();
-
-  /* ---------- marquee ---------- */
-  document.querySelectorAll('.marquee').forEach(function (m) {
-    var track = m.querySelector('.marquee__track');
-    var copy = track.cloneNode(true);
-    [].slice.call(copy.children).forEach(function (c) { c.setAttribute('aria-hidden', 'true'); });
-    while (copy.firstChild) track.appendChild(copy.firstChild);
-    marquees.push(m.querySelector('.marquee__skew'));
-  });
-  if (marquees.length && !reduce) {
-    (function loop() {
-      skew += (ABS.clamp(vel * 0.35, -9, 9) - skew) * 0.12;
-      vel *= 0.9;
-      marquees.forEach(function (el) { el.style.setProperty('--skew', skew.toFixed(2) + 'deg'); });
-      requestAnimationFrame(loop);
-    })();
-  }
 
   /* ---------- cursor ---------- */
   ABS.cursorReset = function () {};

@@ -197,16 +197,6 @@ body[data-theme="red"] .cursor { background: var(--paper); }
 body[data-theme="red"] .cursor span { color: var(--red); }
 @media (hover: none), (pointer: coarse) { .cursor { display: none; } }
 
-/* ---------- marquee ---------- */
-.marquee { overflow: hidden; padding: clamp(1.25rem, 2.6vw, 2.2rem) 0; border-block: 1px solid var(--line); }
-.marquee__skew { transform: skewX(var(--skew, 0deg)); will-change: transform; }
-.marquee__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
-.marquee:hover .marquee__track { animation-play-state: paused; }
-.marquee__item { display: flex; align-items: center; font-size: clamp(2.2rem, 6.4vw, 6.2rem); font-weight: 800; text-transform: uppercase; letter-spacing: -.045em; line-height: 1; white-space: nowrap; }
-.marquee__item:nth-child(even) { font-weight: 300; font-stretch: 125%; }
-.marquee__item::after { content: ""; width: .32em; height: .32em; margin-inline: .55em; background: var(--red); flex: none; }
-@keyframes marquee { to { transform: translateX(-50%); } }
-
 /* ---------- footer ---------- */
 .foot { background: var(--red); color: var(--paper); padding-top: var(--gap); overflow: hidden; }
 .foot a:hover { opacity: .75; }
@@ -234,7 +224,6 @@ body[data-theme="red"] .cursor span { color: var(--red); }
   body { transition: none; }
   .js .rv, .js .ln > span, .js .img-rv img, .foot__word b { opacity: 1; transform: none; transition: none; }
   .label::before { width: 28px; transition: none; }
-  .marquee__track { animation: none; }
   .curtain { display: none; }
   .nav { transition: none; }
 }

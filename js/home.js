@@ -25,6 +25,16 @@
     }, { passive: true });
   }
 
+  /* ---------- track-record sheet: ticks, squares and bars ---------- */
+  document.querySelectorAll('.sheet__viz').forEach(function (v) {
+    var n = +v.dataset.n, kind = v.dataset.kind, html = '';
+    for (var i = 0; i < n; i++) {
+      var cls = kind === 'rule' && (i + 1) % 5 === 0 ? ' class="is-major"' : kind === 'bars' && i === n - 1 ? ' class="is-open"' : '';
+      html += '<i' + cls + ' style="--i:' + i + '"></i>';
+    }
+    v.innerHTML = html;
+  });
+
   /* ---------- beam: scroll-pinned crane sequence ---------- */
   (function () {
     var sec = $('#beam'), fig = $('#beamFig'), bar = $('#beamBar');
@@ -56,8 +66,8 @@
     }
     if (reduce) { paint(1); return; }
     var target = 0, cur = 0, raf = 0;
-    /* starts when the stage is half-way into view, finishes exactly when the pin releases */
-    function read() { var r = sec.getBoundingClientRect(), vh = window.innerHeight; return clamp((vh * 0.5 - r.top) / Math.max(1, r.height - vh * 0.5)); }
+    /* starts as the stage enters the bottom of the screen, finishes exactly when the pin releases */
+    function read() { var r = sec.getBoundingClientRect(), vh = window.innerHeight; return clamp((vh * 0.85 - r.top) / Math.max(1, r.height - vh * 0.15)); }
     function frame() {
       cur += (target - cur) * 0.14;
       if (Math.abs(target - cur) < 0.0004) cur = target;
