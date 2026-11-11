@@ -25,16 +25,6 @@
     }, { passive: true });
   }
 
-  /* ---------- track-record sheet: ticks, squares and bars ---------- */
-  document.querySelectorAll('.sheet__viz').forEach(function (v) {
-    var n = +v.dataset.n, kind = v.dataset.kind, html = '';
-    for (var i = 0; i < n; i++) {
-      var cls = kind === 'rule' && (i + 1) % 5 === 0 ? ' class="is-major"' : kind === 'bars' && i === n - 1 ? ' class="is-open"' : '';
-      html += '<i' + cls + ' style="--i:' + i + '"></i>';
-    }
-    v.innerHTML = html;
-  });
-
   /* ---------- beam: scroll-pinned crane sequence ---------- */
   (function () {
     var sec = $('#beam'), fig = $('#beamFig'), bar = $('#beamBar');
