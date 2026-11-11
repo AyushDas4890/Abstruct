@@ -12,7 +12,7 @@
     return '<a class="pcard" data-in href="#' + p.slug + '" data-slug="' + p.slug + '" data-type="' + p.type + '" data-cursor="Open" style="--d:' + ((i % 2) * 0.1) + 's">' +
       '<div class="pcard__art"><span class="pcard__no">0' + (i + 1) + '</span>' +
         '<img class="pcard__img" src="' + p.img + '" alt="' + p.alt + '" width="1280" height="1024" loading="lazy">' +
-        '<div class="pcard__bp"><img src="' + p.bp + '" alt="" width="1280" height="1024" loading="lazy"></div><i class="pcard__scan" aria-hidden="true"></i></div>' +
+        '<div class="pcard__bp">' + ABS.blueprint(p) + '</div><i class="pcard__scan" aria-hidden="true"></i></div>' +
       '<div class="pcard__meta"><h3>' + p.name + '</h3><span>' + p.typeLabel + ' · ' + p.year + '</span></div>' +
       '<p class="pcard__sub">' + p.scale + ' · ' + fmt(p.area) + ' m²</p></a>';
   }).join('');
@@ -72,7 +72,7 @@
     var p = P[i];
     cur = i;
     stR.innerHTML = '<img src="' + p.img + '" alt="' + p.alt + '" width="1280" height="1024">';
-    stB.innerHTML = '<img src="' + p.bp + '" alt="" width="1280" height="1024">';
+    stB.innerHTML = ABS.blueprint(p);
     $('#dCount').textContent = (i < 9 ? '0' : '') + (i + 1) + ' / ' + (P.length < 10 ? '0' : '') + P.length;
     $('#dType').textContent = p.typeLabel + ' · ' + p.year;
     $('#dName').textContent = p.name;

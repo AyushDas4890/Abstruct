@@ -80,9 +80,7 @@
 .js .pcard.is-in .pcard__art { clip-path: inset(0); }
 .pcard__img { position: absolute; top: -6%; left: 0; width: 100%; height: 112%; object-fit: cover; translate: 0 var(--py, 0px); scale: 1.05; transition: scale 1.4s var(--spring); }
 .pcard:hover .pcard__img, .pcard:focus-visible .pcard__img { scale: 1.12; }
-.pcard__bp { position: absolute; inset: 0; z-index: 2; background: var(--charcoal); clip-path: inset(0 100% 0 0); transition: clip-path .9s var(--wipe); }
-.pcard__bp::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: linear-gradient(rgba(235, 229, 220, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(235, 229, 220, .07) 1px, transparent 1px); background-size: 32px 32px; }
-.pcard__bp img { width: 100%; height: 100%; object-fit: cover; }
+.pcard__bp { position: absolute; inset: 0; z-index: 2; background-color: #F3EEE6; background-image: linear-gradient(rgba(17, 17, 17, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 17, 17, .055) 1px, transparent 1px), linear-gradient(rgba(17, 17, 17, .09) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 17, 17, .09) 1px, transparent 1px); background-size: 16px 16px, 16px 16px, 80px 80px, 80px 80px; clip-path: inset(0 100% 0 0); transition: clip-path .9s var(--wipe); }
 .pcard__scan { position: absolute; top: 0; bottom: 0; left: 0; z-index: 3; width: 2px; background: var(--red); opacity: 0; pointer-events: none; }
 .pcard:hover .pcard__scan, .pcard:focus-visible .pcard__scan { animation: scan .9s var(--wipe) forwards; }
 @keyframes scan { 0% { left: 0; opacity: 1; } 85% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
@@ -96,17 +94,45 @@
 @media (max-width: 760px) { .pgrid { grid-template-columns: 1fr; } .pcard.is-off { margin-top: 0; } }
 
 
+/* technical drawing (js/blueprint.js) */
+.bp { --bp-ink: #111111; --bp-red: #C31C18; --bp-paper: #F3EEE6; display: block; width: 100%; height: 100%; }
+.bp .fr, .bp .fr2, .bp .ln, .bp .dr, .bp .gl, .bp .gl2, .bp .lvl, .bp .bub, .bp .box { fill: none; stroke: var(--bp-ink); stroke-linecap: round; stroke-linejoin: round; }
+.bp .fr { stroke-width: 3; }
+.bp .fr2 { stroke-width: 1.2; }
+.bp .ln { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp .ln.h { stroke-width: 2.3; }
+.bp .ln.l { stroke-width: 1.1; opacity: .85; }
+.bp .dr { stroke-width: 1.3; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp .dr.ex { stroke-width: .9; opacity: .7; }
+.bp .gl { stroke-width: 1; stroke-dasharray: 18 7 3 7; opacity: 0; }
+.bp .gl2 { stroke-width: .9; stroke-dasharray: 3 5; }
+.bp .lvl { fill: var(--bp-ink); }
+.bp .bub { stroke-width: 1.4; fill: var(--bp-paper); }
+.bp .box { fill: var(--bp-paper); stroke-width: 1.3; }
+.bp .dot { fill: var(--bp-ink); stroke: none; }
+.bp .dot.r { fill: var(--bp-red); }
+.bp .rd { stroke: var(--bp-red); stroke-width: 2.4; }
+.bp .tx { font: 600 20px var(--font); fill: var(--bp-ink); letter-spacing: .02em; }
+.bp .tx.sm { font-size: 16px; }
+.bp .tx.xs { font-size: 12.5px; letter-spacing: .14em; }
+.bp .tx.c { font-size: 20px; font-weight: 700; }
+.bp .tx.big { font-size: 31px; font-weight: 800; letter-spacing: -.01em; }
+.bp .fd { opacity: 0; }
+:is(.pcard:hover, .pcard:focus-visible, .stage[data-mode="blueprint"]) .bp .ln { animation: draw 1.7s cubic-bezier(.5, 0, .2, 1) forwards; animation-delay: calc(.3s + var(--i, 0) * 46ms); }
+:is(.pcard:hover, .pcard:focus-visible, .stage[data-mode="blueprint"]) .bp .dr { animation: draw 1s cubic-bezier(.5, 0, .2, 1) forwards; animation-delay: calc(1.2s + var(--j, 0) * 40ms); }
+:is(.pcard:hover, .pcard:focus-visible, .stage[data-mode="blueprint"]) .bp .gl, :is(.pcard:hover, .pcard:focus-visible, .stage[data-mode="blueprint"]) .bp .fd { animation: fadein .7s ease forwards; animation-delay: calc(1.5s + var(--j, 0) * 40ms); }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fadein { to { opacity: 1; } }
+
 /* dossier overlay */
 .dossier { position: fixed; inset: 0; z-index: 80; background: var(--charcoal); color: var(--ivory); --ink: #EBE5DC; --ink-2: rgba(235, 229, 220, .72); --line: rgba(235, 229, 220, .16); overflow-y: auto; clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path .8s var(--wipe), visibility 0s .8s; overscroll-behavior: contain; }
 .dossier.is-open { clip-path: inset(0); visibility: visible; transition: clip-path .8s var(--wipe); }
 .dossier__grid { min-height: 100%; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
 .stage { position: sticky; top: 0; height: 100dvh; align-self: start; min-height: 60vh; background: var(--charcoal); overflow: hidden; isolation: isolate; }
 .stage__render, .stage__bp { position: absolute; inset: 0; }
-.stage__render img, .stage__bp img { width: 100%; height: 100%; object-fit: cover; }
-.stage__render img { scale: 1.14; translate: calc(var(--sx, 0) * -14px) calc(var(--sy, 0) * -10px); transition: scale 2.6s var(--spring); }
+.stage__render img { width: 100%; height: 100%; object-fit: cover; scale: 1.14; translate: calc(var(--sx, 0) * -14px) calc(var(--sy, 0) * -10px); transition: scale 2.6s var(--spring); }
 .dossier.is-open .stage__render img { scale: 1.03; }
-.stage__bp { z-index: 2; background: var(--charcoal); clip-path: inset(0 0 0 100%); transition: clip-path 1s var(--wipe); }
-.stage__bp::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: linear-gradient(rgba(235, 229, 220, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(235, 229, 220, .07) 1px, transparent 1px); background-size: 40px 40px; }
+.stage__bp { z-index: 2; background-color: #F3EEE6; background-image: linear-gradient(rgba(17, 17, 17, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 17, 17, .055) 1px, transparent 1px), linear-gradient(rgba(17, 17, 17, .09) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 17, 17, .09) 1px, transparent 1px); background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px; clip-path: inset(0 0 0 100%); transition: clip-path 1s var(--wipe); }
 .stage[data-mode="blueprint"] .stage__bp { clip-path: inset(0); }
 .stage__scan { position: absolute; top: 0; bottom: 0; left: 100%; z-index: 4; width: 2px; background: var(--red); opacity: 0; pointer-events: none; }
 .stage[data-mode="blueprint"] .stage__scan { animation: scan-back 1s var(--wipe) forwards; }
@@ -255,6 +281,8 @@ input[type="range"]:hover::-webkit-slider-thumb { transform: scale(1.2); }
 @media (max-width: 900px) { .contact { grid-template-columns: 1fr; } .ticket { position: static; order: -1; } .types { grid-template-columns: 1fr; } .type span { min-height: 0; } .fields { grid-template-columns: 1fr; } }
 
 @media (prefers-reduced-motion: reduce) {
+  .bp .ln, .bp .dr { stroke-dashoffset: 0; animation: none !important; }
+  .bp .fd, .bp .gl { opacity: 1; animation: none !important; }
   .js .pal li { clip-path: none; }
   .pal li::after { animation: none; }
   .pal__hex { animation: none; }

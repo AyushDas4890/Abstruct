@@ -18,7 +18,9 @@ python3 -m http.server 8000
 - `css/base.css` tokens, section theming, type, nav, footer, curtain, cursor, marquee
 - `css/home.css`, `css/inner.css` page styles
 - `js/core.js` nav/footer injection, page transitions, theme, reveals, counters, cursor
-- `assets/img/projects/` project photographs (`slug.webp`) and edge-traced blueprints (`slug-bp.webp`), plus `hero.webp`
+- `assets/img/projects/` project photographs (`slug.webp`) plus `hero.webp`
+- `js/blueprints.js` traced vector linework (generated), `js/blueprint.js` drawing-sheet renderer (dimensions, grid bubbles, levels, callouts, title block; values are placeholders)
+- `tools/build_blueprints.py` regenerates `js/blueprints.js` from the photos (build-time only; needs `opencv-python-headless`)
 - `js/data.js` all copy and project data
 - `docs/plan.md` the build plan
 
@@ -33,7 +35,7 @@ the About story, head-office address and email (`hello@abstruct.example`, set in
 and the "illustrative programme" formula in `js/contact.js`.
 
 ## Notes
-- Project and hero photographs are AI-generated illustrative images (Figma AI); the blueprints are edge-traces of those photos. Replace with real project photography when you have it: keep the file names or update `js/data.js`.
+- Project and hero photographs are AI-generated illustrative images (Figma AI); the blueprint linework is traced from those photos. Replace with real project photography when you have it: keep the file names or update `js/data.js`.
 - Font: Archivo (variable, Google Fonts) stands in for the licensed Neue Grostek; swap `--font` in `css/base.css`.
 - The quote form has no backend: it validates, then opens a pre-filled `mailto:`. Replace `send` logic in `js/contact.js` with a `fetch()` when an endpoint exists.
 - Respects `prefers-reduced-motion`; mobile layouts at ≤900px.

@@ -105,7 +105,6 @@
   };
   ABS.projects.forEach(function (p) {
     p.img = 'assets/img/projects/' + p.slug + '.webp';
-    p.bp = 'assets/img/projects/' + p.slug + '-bp.webp';
     p.alt = ALT[p.slug];
   });
 })();
