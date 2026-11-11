@@ -8,21 +8,18 @@
 .hero__go { display: inline-flex; align-items: center; gap: 1rem; margin-top: clamp(1.5rem, 3vw, 2.5rem); font-size: .9rem; font-weight: 600; }
 .hero__go .circle { width: 56px; height: 56px; }
 .hero__go:hover .circle { transform: scale(1.1) rotate(-45deg); }
-.hero__art { position: relative; align-self: stretch; min-height: 420px; }
-.hero__plane { position: absolute; top: 0; left: 6%; right: calc(var(--pad) * -1); height: 64%; background: var(--red); clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 58%); transform-origin: 50% 0; }
-.js .hero__plane { transform: scaleY(0); transition: transform 1.3s var(--wipe) .1s; }
-.js .hero.is-built .hero__plane { transform: none; }
-.hero__art svg { position: absolute; inset: auto 0 0 0; width: 100%; height: 100%; overflow: visible; }
-.hero__art .blk { translate: calc(var(--mx, 0) * var(--dep) * 1px) calc(var(--my, 0) * var(--dep) * .55px); }
-.js .hero__art .blk { opacity: 0; transform: translateY(70px); transition: opacity .8s var(--spring), transform 1.3s var(--spring); transition-delay: calc(var(--i) * .13s + .35s); }
-.js .hero.is-built .hero__art .blk { opacity: 1; transform: none; }
-.hero__art .ground { fill: none; }
+.hero__art { position: relative; align-self: stretch; min-height: 420px; margin-right: calc(var(--pad) * -1); border-radius: var(--r) 0 0 var(--r); overflow: hidden; background: var(--red); }
+.js .hero__art { clip-path: inset(0 0 100% 0); transition: clip-path 1.4s var(--wipe) .1s; }
+.js .hero.is-built .hero__art { clip-path: inset(0); }
+.hero__img { position: absolute; top: -4%; left: -4%; width: 108%; height: 108%; max-width: none; object-fit: cover; translate: calc(var(--mx, 0) * -16px) calc(var(--my, 0) * -10px); }
+.js .hero__img { scale: 1.12; transition: scale 2.4s var(--spring); }
+.js .hero.is-built .hero__img { scale: 1; }
 .hero__tag { position: absolute; right: 0; bottom: 2.2rem; z-index: 2; text-align: right; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); }
 
 
 @media (max-width: 900px) {
   .hero__grid { grid-template-columns: 1fr; }
-  .hero__art { min-height: 0; aspect-ratio: 640 / 700; max-height: 70vh; justify-self: center; width: min(100%, 480px); }
+  .hero__art { min-height: 0; aspect-ratio: 4 / 5; max-height: 70vh; justify-self: center; width: min(100%, 480px); margin-right: 0; border-radius: var(--r); }
 }
 
 /* ---------- beam (scroll-pinned) ---------- */
@@ -99,7 +96,7 @@
 .peek.is-on { opacity: 1; scale: 1; }
 .peek__i { position: absolute; inset: 0; opacity: 0; transition: opacity .25s; }
 .peek__i.is-on { opacity: 1; }
-.peek svg { width: 100%; height: 100%; }
+.peek img { width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 900px) {
   .plist a { grid-template-columns: 2rem minmax(0, 1fr) 2rem; }
   .plist__t, .plist__y { display: none; }
@@ -129,7 +126,8 @@
 .quote .btn { margin-top: clamp(1.5rem, 3.5vw, 2.5rem); }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .hero__plane, .js .hero__art .blk { transform: none; transition: none; opacity: 1; }
+  .js .hero__art { clip-path: none; transition: none; }
+  .js .hero__img { scale: 1; transition: none; }
   .js .svc__p { clip-path: none; }
   .js .mono img { --y: 0%; transition: none; }
   .beam { height: auto; }

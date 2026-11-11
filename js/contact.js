@@ -41,19 +41,24 @@
   slider.value = st.slider;
 
   /* ---------- scope sheet ---------- */
-  var artHost = $('#tArt'), artSeed = null;
+  var artHost = $('#tArt'), artSlug = null;
+  /* the scope sheet shows the delivered project closest in size to your answer */
+  function comparable() {
+    var s = size(), list = ABS.projects.filter(function (p) { return p.type === st.type; });
+    return list.reduce(function (best, p) { return Math.abs(p.area - s) < Math.abs(best.area - s) ? p : best; }, list[0]);
+  }
   function setArt() {
-    var bucket = Math.min(6, Math.floor(st.slider / 150));
-    var seed = TYPES.map(function (t) { return t[0]; }).indexOf(st.type) * 131 + bucket * 7 + 5;
-    if (seed === artSeed) return;
-    var first = artSeed === null; artSeed = seed;
-    var old = artHost.querySelector('svg');
-    artHost.insertAdjacentHTML('beforeend', ABS.art.render(ABS.art.layout(seed), { label: 'Illustrative building for your scope' }));
-    var fresh = artHost.lastElementChild;
+    var p = comparable();
+    if (p.slug === artSlug) return;
+    var first = artSlug === null; artSlug = p.slug;
+    var old = artHost.querySelector('img'), img = new Image();
+    img.src = p.img; img.alt = p.alt; img.width = 1280; img.height = 1024;
+    artHost.appendChild(img);
+    $('#tCmp').textContent = p.name + ', ' + fmt(p.area) + ' m²';
     if (old && !first) {
-      fresh.classList.add('is-old');
-      requestAnimationFrame(function () { requestAnimationFrame(function () { fresh.classList.remove('is-old'); old.classList.add('is-old'); }); });
-      setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 450);
+      img.classList.add('is-old');
+      requestAnimationFrame(function () { requestAnimationFrame(function () { img.classList.remove('is-old'); old.classList.add('is-old'); }); });
+      setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 800);
     }
   }
   function paint() {

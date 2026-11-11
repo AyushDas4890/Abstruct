@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Libre+Caslon+Condensed:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/projects/hero.webp" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/home.css">
 </head>
@@ -29,9 +30,7 @@
         <p class="hero__p rv" style="--d:.5s">Construction solutions driven by precision, innovation, and a commitment to a stronger tomorrow.</p>
         <a class="hero__go rv" style="--d:.6s" href="services.html"><i class="circle" aria-hidden="true">→</i><span>Explore Our Services</span></a>
       </div>
-      <div class="hero__art" id="heroArt" aria-hidden="true">
-        <div class="hero__plane"></div>
-      </div>
+      <div class="hero__art" id="heroArt"></div>
     </div>
     <div class="wrap hero__tags" data-tags></div>
   </section>
@@ -105,7 +104,6 @@
 </main>
 <script src="js/core.js"></script>
 <script src="js/tags.js"></script>
-<script src="js/art.js"></script>
 <script src="js/data.js"></script>
 <script src="js/home.js"></script>
 </body>

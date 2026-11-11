@@ -6,7 +6,7 @@
 
   /* ---------- hero: concrete assembles, red plane wipes, pointer parallax ---------- */
   var hero = $('#hero'), art = $('#heroArt');
-  art.insertAdjacentHTML('beforeend', ABS.art.render(ABS.art.hero(), { label: 'Concrete volumes assembling in front of a red plane' }));
+  art.insertAdjacentHTML('beforeend', '<img class="hero__img" src="assets/img/projects/hero.webp" alt="Stacked cantilevered concrete volumes against a flat plane of signal red" width="1024" height="1280" fetchpriority="high" decoding="async">');
   ABS.onReady(function () { setTimeout(function () { hero.classList.add('is-built'); }, 120); });
 
   if (!reduce && window.matchMedia('(hover: hover)').matches) {
@@ -104,7 +104,7 @@
         '<span class="plist__t">' + p.typeLabel + '</span><span class="plist__y">' + p.year + '</span><i class="arr" aria-hidden="true">→</i></a></li>';
     }).join('');
     peek.innerHTML = list.map(function (p) {
-      return '<div class="peek__i">' + ABS.art.render(ABS.art.layout(p.seed), { label: p.name }) + '</div>';
+      return '<div class="peek__i"><img src="' + p.img + '" alt="' + p.alt + '" width="1280" height="1024"></div>';
     }).join('');
     var imgs = [].slice.call(peek.children);
     if (reduce || !window.matchMedia('(hover: hover)').matches) return;

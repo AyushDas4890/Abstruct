@@ -18,7 +18,7 @@ python3 -m http.server 8000
 - `css/base.css` tokens, section theming, type, nav, footer, curtain, cursor, marquee
 - `css/home.css`, `css/inner.css` page styles
 - `js/core.js` nav/footer injection, page transitions, theme, reveals, counters, cursor
-- `js/art.js` seeded concrete-building generator (render + blueprint)
+- `assets/img/projects/` project photographs (`slug.webp`) and edge-traced blueprints (`slug-bp.webp`), plus `hero.webp`
 - `js/data.js` all copy and project data
 - `docs/plan.md` the build plan
 
@@ -33,6 +33,7 @@ the About story, head-office address and email (`hello@abstruct.example`, set in
 and the "illustrative programme" formula in `js/contact.js`.
 
 ## Notes
+- Project and hero photographs are AI-generated illustrative images (Figma AI); the blueprints are edge-traces of those photos. Replace with real project photography when you have it: keep the file names or update `js/data.js`.
 - Font: Archivo (variable, Google Fonts) stands in for the licensed Neue Grostek; swap `--font` in `css/base.css`.
 - The quote form has no backend: it validates, then opens a pre-filled `mailto:`. Replace `send` logic in `js/contact.js` with a `fetch()` when an endpoint exists.
 - Respects `prefers-reduced-motion`; mobile layouts at ≤900px.

@@ -92,4 +92,20 @@
     ['How do you keep a programme on time?', 'A weekly look-ahead, signed by the site lead and by you. Late items are named on the page, not folded into the next week.'],
     ['What happens after handover?', 'A twelve-month defects period, with walk-rounds at month six and month eleven, and one phone number that is answered.']
   ];
+  /* photography (AI-generated illustrative images; replace with real project photos) */
+  var ALT = {
+    'halden-exchange': 'Twelve-storey concrete office building on a narrow plot beside a tram line, with one red panel on the facade',
+    'tallis-house': 'New apartment storeys set back above a retained 1930s brick and stone street frontage',
+    'corvin-yard': 'Mixed-use building with a retail arcade and planted podium garden over a railway cutting',
+    'ashgrove-residences': 'Two terraces of concrete and brick townhouses with private walled yards',
+    'the-ledger-building': '1960s concrete-framed office mid-refurbishment with scaffolding and new glazing',
+    'brannock-works': 'Grey-clad logistics hub with loading docks and a red entrance canopy',
+    'pell-street-lofts': 'Victorian brick print works converted into lofts, with a saw-tooth glazed roof and a red door',
+    'north-quay-library': 'Concrete and glass public library raised on piers above a quayside'
+  };
+  ABS.projects.forEach(function (p) {
+    p.img = 'assets/img/projects/' + p.slug + '.webp';
+    p.bp = 'assets/img/projects/' + p.slug + '-bp.webp';
+    p.alt = ALT[p.slug];
+  });
 })();

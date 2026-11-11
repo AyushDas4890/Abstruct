@@ -9,23 +9,31 @@
   /* ---------- grid ---------- */
   var grid = $('#pgrid');
   grid.innerHTML = P.map(function (p, i) {
-    var L = ABS.art.layout(p.seed);
     return '<a class="pcard" data-in href="#' + p.slug + '" data-slug="' + p.slug + '" data-type="' + p.type + '" data-cursor="Open" style="--d:' + ((i % 2) * 0.1) + 's">' +
       '<div class="pcard__art"><span class="pcard__no">0' + (i + 1) + '</span>' +
-        '<div class="pcard__render">' + ABS.art.render(L, { label: p.name + ' elevation' }) + '</div>' +
-        '<div class="pcard__bp">' + ABS.art.blueprint(L, { label: p.name + ' blueprint' }) + '</div></div>' +
+        '<img class="pcard__img" src="' + p.img + '" alt="' + p.alt + '" width="1280" height="1024" loading="lazy">' +
+        '<div class="pcard__bp"><img src="' + p.bp + '" alt="" width="1280" height="1024" loading="lazy"></div><i class="pcard__scan" aria-hidden="true"></i></div>' +
       '<div class="pcard__meta"><h3>' + p.name + '</h3><span>' + p.typeLabel + ' · ' + p.year + '</span></div>' +
       '<p class="pcard__sub">' + p.scale + ' · ' + fmt(p.area) + ' m²</p></a>';
   }).join('');
   var cards = [].slice.call(grid.children);
 
-  cards.forEach(function (c) {
-    var bp = c.querySelector('.pcard__bp'), t;
-    var on = function () { clearTimeout(t); bp.classList.add('is-draw'); };
-    var off = function () { clearTimeout(t); t = setTimeout(function () { bp.classList.remove('is-draw'); }, 1000); };
-    c.addEventListener('mouseenter', on); c.addEventListener('focus', on);
-    c.addEventListener('mouseleave', off); c.addEventListener('blur', off);
-  });
+  /* photos drift against the scroll */
+  if (!ABS.reduce) {
+    var imgs = cards.map(function (c) { return c.querySelector('.pcard__img'); }), parTick = false;
+    var drift = function () {
+      parTick = false;
+      var vh = window.innerHeight;
+      cards.forEach(function (c, i) {
+        if (c.hidden) return;
+        var r = c.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        imgs[i].style.setProperty('--py', (((r.top + r.height / 2) / vh - 0.5) * -28).toFixed(1) + 'px');
+      });
+    };
+    window.addEventListener('scroll', function () { if (!parTick) { parTick = true; requestAnimationFrame(drift); } }, { passive: true });
+    drift();
+  }
 
   /* ---------- filter ---------- */
   var filters = [['all', 'All'], ['residential', 'Residential'], ['commercial', 'Commercial'], ['management', 'Project Management']];
@@ -59,13 +67,12 @@
   function setMode(m) {
     stage.dataset.mode = m;
     dos.querySelectorAll('.mode button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.m === m)); });
-    stB.classList.toggle('is-draw', m === 'blueprint');
   }
   function fill(i) {
-    var p = P[i], L = ABS.art.layout(p.seed);
+    var p = P[i];
     cur = i;
-    stR.innerHTML = ABS.art.render(L, { label: p.name + ' elevation' });
-    stB.innerHTML = ABS.art.blueprint(L, { label: p.name + ' blueprint' });
+    stR.innerHTML = '<img src="' + p.img + '" alt="' + p.alt + '" width="1280" height="1024">';
+    stB.innerHTML = '<img src="' + p.bp + '" alt="" width="1280" height="1024">';
     $('#dCount').textContent = (i < 9 ? '0' : '') + (i + 1) + ' / ' + (P.length < 10 ? '0' : '') + P.length;
     $('#dType').textContent = p.typeLabel + ' · ' + p.year;
     $('#dName').textContent = p.name;
@@ -74,6 +81,13 @@
     $('#dFacts').innerHTML = [['Role', p.role], ['Scale', p.scale], ['Area', fmt(p.area) + ' m²'], ['Programme', p.months + ' months'], ['Completed', p.year]]
       .map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('');
     $('#dQuote').href = 'contact.html?type=' + p.type;
+  }
+  if (!ABS.reduce && window.matchMedia('(hover: hover)').matches) {
+    stage.addEventListener('pointermove', function (e) {
+      var r = stage.getBoundingClientRect();
+      stage.style.setProperty('--sx', (((e.clientX - r.left) / r.width - 0.5) * 2).toFixed(3));
+      stage.style.setProperty('--sy', (((e.clientY - r.top) / r.height - 0.5) * 2).toFixed(3));
+    }, { passive: true });
   }
   function setHash(slug) {
     try { history.replaceState(null, '', slug ? '#' + slug : location.pathname + location.search); } catch (e) { location.hash = slug || ''; }
